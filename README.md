@@ -38,14 +38,20 @@ smallest element in the list, and moves it to the *i*<sup>th</sup> position.
 
 * Estimate the number of operations of this function, i.e., the computational complexity, depending on the input size. 
 
-```
-IndexOfMin(array, first, last)
-1   index ← first
-2   for k ← first + 1 to last
-3     if array[k] < array[index]
-4       index ← k
-5   return index
-```
+
+IndexOfMin <- function(array, first, last) {
+  index <- first
+  for (k in (first + 1):last) {
+    if (array[k] < array[index]) {
+      index <- k
+    }
+  }
+  return(index)
+}
+
+v <- c(7, 3, 9, 1, 5)
+IndexOfMin(v, 1, length(v))
+
 
 ### Task 3 
 * In R, implement the function `SelectionSort()` according to the following pseudocode.
@@ -60,13 +66,21 @@ IndexOfMin(array, first, last)
 * Estimate the number of operations of this function, i.e., the computational complexity, depending on the input size.
 * Determine the *O* notation.
 
-```
-SelectionSort(array, n)
-1   for i ← 1 to n − 1
-2     j ← IndexOfMin(array, i, n)
-3     Swap elements array[i] and array[j]
-4   return array
-```
+SelectionSort <- function(array, n) {
+  for (i in 1:(n - 1)) {
+    j <- IndexOfMin(array, i, n)
+    
+    # Swap array[i] and array[j]
+    temp <- array[i]
+    array[i] <- array[j]
+    array[j] <- temp
+  }
+  return(array)
+}
+
+v <- c(64, 25, 12, 22, 11)
+sorted_v <- SelectionSort(v, length(v))
+print(sorted_v)
 
 ### Task 4
 * In R, implement the function `RecursiveSelectionSort()` according to the following pseudocode.
@@ -83,14 +97,26 @@ SelectionSort(array, n)
 * Determine the *O* notation.
 * Decide which algorithm (`SelectionSort()` or `RecursiveSelectionSort()`) algorithm is more efficient.
 
-```
-RecursiveSelectionSort(array, first, last)
-1   if first < last
-2     index ← IndexOfMin(array, first, last)
-3     Swap array[first] with array[index]
-4     array ← RecursiveSelectionSort(array, first + 1, last)
-5   return array
-```
+RecursiveSelectionSort <- function(array, first, last) {
+  if (first < last) {
+    # Find index of smallest element in current range
+    index <- IndexOfMin(array, first, last)
+    
+    # Swap array[first] and array[index]
+    temp <- array[first]
+    array[first] <- array[index]
+    array[index] <- temp
+    
+    # Recursively sort the remainder of the array
+    array <- RecursiveSelectionSort(array, first + 1, last)
+  }
+  return(array)
+}
+
+v <- c(29, 10, 14, 37, 13)
+sorted_v <- RecursiveSelectionSort(v, 1, length(v))
+print(sorted_v)
+
 
 
 ## Download files from GitHub
